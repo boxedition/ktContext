@@ -36,13 +36,12 @@
         android:id="@+id/camera_fragment"
         android:name="com.google.mediapipe.examples.objectdetection.fragments.CameraFragment"
         android:label="CameraFragment">
-
         <action
-            android:id="@+id/action_camera_to_permissions"
-            app:destination="@id/permissions_fragment"
-            app:popUpTo="@id/camera_fragment"
-            app:popUpToInclusive="true" />
-
+            android:id="@+id/action_camera_fragment_to_gallery_fragment"
+            app:destination="@id/gallery_fragment" />
+        <action
+            android:id="@+id/action_camera_fragment_to_permissions_fragment"
+            app:destination="@id/permissions_fragment" />
     </fragment>
 
     <fragment
@@ -56,5 +55,8 @@
         <action
             android:id="@+id/action_startFragment_to_camera_fragment"
             app:destination="@id/camera_fragment" />
+        <action
+            android:id="@+id/action_startFragment_to_gallery_fragment"
+            app:destination="@id/gallery_fragment" />
     </fragment>
 </navigation>

@@ -31,9 +31,6 @@ android {
         versionName "1.0.0"
     }
 
-    dataBinding {
-        enabled = true
-    }
 
     compileOptions {
         sourceCompatibility rootProject.ext.java_version
@@ -53,6 +50,7 @@ android {
 
     buildFeatures {
         viewBinding true
+        dataBinding true
     }
     androidResources {
         noCompress 'tflite'
