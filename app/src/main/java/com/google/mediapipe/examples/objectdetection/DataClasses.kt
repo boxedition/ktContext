@@ -8,6 +8,7 @@ data class Task(
     val title: String,
     val description: String,
     val modelType: String,
+    val modelValue: String,
     val completed: Boolean
 )
 

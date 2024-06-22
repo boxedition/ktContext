@@ -40,6 +40,7 @@ import com.google.mediapipe.examples.objectdetection.ObjectDetectorHelper
 import com.google.mediapipe.examples.objectdetection.R
 import com.google.mediapipe.examples.objectdetection.databinding.FragmentCameraBinding
 import com.google.mediapipe.tasks.vision.core.RunningMode
+import com.google.mediapipe.tasks.vision.objectdetector.ObjectDetectorResult
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
@@ -79,7 +80,7 @@ class CameraFragment : Fragment(), ObjectDetectorHelper.DetectorListener {
         super.onPause()
 
         // save ObjectDetector settings
-        if(this::objectDetectorHelper.isInitialized) {
+        if (this::objectDetectorHelper.isInitialized) {
             viewModel.setModel(objectDetectorHelper.currentModel)
             viewModel.setDelegate(objectDetectorHelper.currentDelegate)
             viewModel.setThreshold(objectDetectorHelper.threshold)
@@ -201,7 +202,7 @@ class CameraFragment : Fragment(), ObjectDetectorHelper.DetectorListener {
                     try {
                         objectDetectorHelper.currentDelegate = p2
                         updateControlsUi()
-                    } catch(e: UninitializedPropertyAccessException) {
+                    } catch (e: UninitializedPropertyAccessException) {
                         Log.e(TAG, "ObjectDetectorHelper has not been initialized yet.")
                     }
                 }
@@ -227,7 +228,7 @@ class CameraFragment : Fragment(), ObjectDetectorHelper.DetectorListener {
                     try {
                         objectDetectorHelper.currentDelegate = p2
                         updateControlsUi()
-                    } catch(e: UninitializedPropertyAccessException) {
+                    } catch (e: UninitializedPropertyAccessException) {
                         Log.e(TAG, "ObjectDetectorHelper has not been initialized yet.")
                     }
                 }
@@ -342,6 +343,25 @@ class CameraFragment : Fragment(), ObjectDetectorHelper.DetectorListener {
 
                 // Pass necessary information to OverlayView for drawing on the canvas
                 val detectionResult = resultBundle.results[0]
+
+                //Check if there is a detectedObjects that matches current objective
+                viewModel.currentTask.value?.let { currentTask ->
+                    val detectedObjects = detectionResult.detections()
+                    for (detection in detectedObjects) {
+                        //Log.d(TAG, "Detection: $detection")
+                        for (category in detection.categories()) {
+                            //Log.d(TAG, "Category: $category")
+                            val categoryName = category.categoryName()
+                            //Log.d(TAG, "Category: $categoryName")
+                            if (categoryName == currentTask.modelValue) {
+                                //Log.d(TAG, "Detected object matches current task model value: $categoryName")
+                                Toast.makeText(requireContext(), "Current task model value detected: $categoryName", Toast.LENGTH_SHORT).show()
+                                break
+                            }
+                        }
+                    }
+                }
+
                 if (isAdded) {
                     fragmentCameraBinding.overlay.setResults(
                         detectionResult,
