@@ -15,12 +15,17 @@
  */
 package com.google.mediapipe.examples.objectdetection
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 /**
  *  This ViewModel is used to store object detector helper settings
  */
 class MainViewModel : ViewModel() {
+    private val _tasks = MutableLiveData<List<Task>>()
+    val tasks: LiveData<List<Task>> get() = _tasks
+
     private var _delegate: Int = ObjectDetectorHelper.DELEGATE_CPU
     private var _threshold: Float =
         ObjectDetectorHelper.THRESHOLD_DEFAULT
@@ -47,5 +52,9 @@ class MainViewModel : ViewModel() {
 
     fun setModel(model: Int) {
         _model = model
+    }
+
+    fun setTasks(taskList: List<Task>) {
+        _tasks.value = taskList
     }
 }

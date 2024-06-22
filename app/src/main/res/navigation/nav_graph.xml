@@ -16,6 +16,7 @@
 -->
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/permissions_fragment">
 
@@ -58,5 +59,17 @@
         <action
             android:id="@+id/action_startFragment_to_gallery_fragment"
             app:destination="@id/gallery_fragment" />
+        <action
+            android:id="@+id/action_startFragment_to_tasksFragment"
+            app:destination="@id/tasksFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tasksFragment"
+        android:name="com.google.mediapipe.examples.objectdetection.fragments.TasksFragment"
+        android:label="fragment_tasks"
+        tools:layout="@layout/fragment_tasks" >
+        <action
+            android:id="@+id/action_tasksFragment_to_camera_fragment"
+            app:destination="@id/camera_fragment" />
     </fragment>
 </navigation>

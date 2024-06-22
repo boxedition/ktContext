@@ -18,11 +18,14 @@ class StartFragment : Fragment() {
             R.layout.fragment_start,container,false)
 
         binding.playButton.setOnClickListener {
-            //it.findNavController().navigate(StartFragmentDirections.actionStartFragmentToMapFragment())
+            //it.findNavController().navigate(StartFragmentDirections.actionStartFragmentToTasksFragment())
+            it.findNavController().navigate(R.id.action_startFragment_to_tasksFragment)
+
         }
 
         binding.cameraButton.setOnClickListener{
-            it.findNavController().navigate(StartFragmentDirections.actionStartFragmentToCameraFragment())
+            //it.findNavController().navigate(StartFragmentDirections.actionStartFragmentToCameraFragment())
+            it.findNavController().navigate(R.id.action_startFragment_to_camera_fragment)
         }
 
         return binding.root
