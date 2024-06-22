@@ -8,7 +8,7 @@
         android:layout_margin="5dp"
         android:background="?attr/selectableItemBackground"
         app:cardCornerRadius="8dp"
-        app:cardElevation="4dp">
+        app:cardElevation="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -21,14 +21,18 @@
                 android:layout_height="match_parent"
                 android:text="Task Title"
                 android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/taskDescription" />
+                app:layout_constraintStart_toStartOf="@id/taskDescription"
+                tools:layout_editor_absoluteY="16dp"
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
                 android:id="@+id/taskDescription"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Task Description"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/taskTitle" />
