@@ -9,7 +9,7 @@ data class Task(
     val description: String,
     val modelType: String,
     val modelValue: String,
-    val completed: Boolean
+    var completed: Boolean
 )
 
 @Serializable

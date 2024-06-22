@@ -32,10 +32,16 @@ class TaskAdapter(private val onTaskClick: (Task) -> Unit) : RecyclerView.Adapte
     class TaskViewHolder(itemView: View, private val onTaskClick: (Task) -> Unit) : RecyclerView.ViewHolder(itemView) {
         private val taskTitle: TextView = itemView.findViewById(R.id.taskTitle)
         private val taskDescription: TextView = itemView.findViewById(R.id.taskDescription)
+        private val taskState: TextView = itemView.findViewById(R.id.taskState)
 
         fun bind(task: Task) {
             taskTitle.text = task.title
             taskDescription.text = task.description
+            if (task.completed == true) {
+                taskState.text = "Completed"
+            } else {
+                taskState.text = "Not Completed"
+            }
             itemView.setOnClickListener { onTaskClick(task) }
         }
     }

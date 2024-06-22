@@ -38,6 +38,7 @@ import androidx.navigation.Navigation
 import com.google.mediapipe.examples.objectdetection.MainViewModel
 import com.google.mediapipe.examples.objectdetection.ObjectDetectorHelper
 import com.google.mediapipe.examples.objectdetection.R
+import com.google.mediapipe.examples.objectdetection.adapter.TaskAdapter
 import com.google.mediapipe.examples.objectdetection.databinding.FragmentCameraBinding
 import com.google.mediapipe.tasks.vision.core.RunningMode
 import com.google.mediapipe.tasks.vision.objectdetector.ObjectDetectorResult
@@ -356,6 +357,12 @@ class CameraFragment : Fragment(), ObjectDetectorHelper.DetectorListener {
                             if (categoryName == currentTask.modelValue) {
                                 //Log.d(TAG, "Detected object matches current task model value: $categoryName")
                                 Toast.makeText(requireContext(), "Current task model value detected: $categoryName", Toast.LENGTH_SHORT).show()
+                                viewModel.currentTask.value?.completed = true
+                                val taskAdapter = TaskAdapter { task ->
+                                    //Toast.makeText(context, "Current task set to: ${task.title}", Toast.LENGTH_SHORT).show()
+                                    viewModel.setCurrentTask(viewModel.tasks.value?.get(currentTask.id + 1)!!)
+                                }
+                                taskAdapter.submitList(viewModel.tasks.value!!)
                                 break
                             }
                         }
