@@ -48,8 +48,8 @@ class MainActivity : AppCompatActivity() {
             // ignore the reselection
         }
 
-        val taskList = getTasks()
-        Log.d("MainActivity", taskList.toString())
+        //Simulate getting information from "Server"
+        viewModel.setTasks(getTasks().tasks)
     }
 
     private fun getTasks(): TaskList {
