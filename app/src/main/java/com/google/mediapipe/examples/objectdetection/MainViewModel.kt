@@ -26,6 +26,9 @@ class MainViewModel : ViewModel() {
     private val _tasks = MutableLiveData<List<Task>>()
     val tasks: LiveData<List<Task>> get() = _tasks
 
+    private val _currentTask = MutableLiveData<Task>()
+    val currentTask: LiveData<Task> get() = _currentTask
+
     private var _delegate: Int = ObjectDetectorHelper.DELEGATE_CPU
     private var _threshold: Float =
         ObjectDetectorHelper.THRESHOLD_DEFAULT
@@ -56,5 +59,12 @@ class MainViewModel : ViewModel() {
 
     fun setTasks(taskList: List<Task>) {
         _tasks.value = taskList
+        if (taskList.isNotEmpty()) {
+            _currentTask.value = taskList[0] // Set the first task as the current task
+        }
+    }
+
+    fun setCurrentTask(task: Task) {
+        _currentTask.value = task
     }
 }

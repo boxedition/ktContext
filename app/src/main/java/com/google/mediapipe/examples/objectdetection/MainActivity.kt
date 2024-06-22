@@ -61,6 +61,7 @@ class MainActivity : AppCompatActivity() {
               "title": "Beer4Two",
               "description": "Find 2 full beers and drink them",
               "modelType": "OBJECT_DETECTION",
+              "modelValue": "cup",
               "completed": false
             },
             {
@@ -68,6 +69,7 @@ class MainActivity : AppCompatActivity() {
               "title": "T-Pose??",
               "description": "Find a cool bench and T-Pose in front",
               "modelType": "POSE_OBJECT_DETECTION",
+              "modelValue": "??"
               "completed": false
             },
             {
@@ -75,6 +77,7 @@ class MainActivity : AppCompatActivity() {
               "title": "Good Job :)",
               "description": "Make a thumbs-up!!!",
               "modelType": "HAND_TRACKING",
+              "modelValue": "thumbs_up",
               "completed": false
             }
           ]

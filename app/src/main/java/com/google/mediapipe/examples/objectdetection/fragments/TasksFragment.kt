@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -37,12 +38,20 @@ class TasksFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val taskAdapter = TaskAdapter()
+        val taskAdapter = TaskAdapter { task ->
+            //Toast.makeText(context, "Current task set to: ${task.title}", Toast.LENGTH_SHORT).show()
+            viewModel.setCurrentTask(task)
+        }
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = taskAdapter
 
         viewModel.tasks.observe(viewLifecycleOwner, Observer { tasks ->
             taskAdapter.submitList(tasks)
+        })
+
+        viewModel.currentTask.observe(viewLifecycleOwner, Observer { task ->
+            // Update the UI to show the current task, e.g., update a TextView
+            binding.currentTaskTextView.text = "Current Task: ${task.title}"
         })
     }
 
