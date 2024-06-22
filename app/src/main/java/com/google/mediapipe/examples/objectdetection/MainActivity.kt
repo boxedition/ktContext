@@ -28,10 +28,6 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import java.security.Timestamp
 
-/**
- * Main entry point into our app. This app follows the single-activity pattern, and all
- * functionality is implemented in the form of fragments.
- */
 
 
 class MainActivity : AppCompatActivity() {
@@ -51,55 +47,42 @@ class MainActivity : AppCompatActivity() {
         activityMainBinding.navigation.setOnNavigationItemReselectedListener {
             // ignore the reselection
         }
+
+        val taskList = getTasks()
+        Log.d("MainActivity", taskList.toString())
     }
-    @Serializable
-    data class Task(
-        val id: Int,
-        val title: String,
-        val description: String,
-        val modelType: String,
-        val completed: Boolean
-    )
 
-    @Serializable
-    data class TaskList(
-        val tasks: List<Task>
-    )
-
-
-    private fun getTasks(): Unit {
+    private fun getTasks(): TaskList {
         val json = """
-    {
-      "tasks": [
         {
-          "id": 1,
-          "title":"Beer4Two",
-          "description": "Find 2 full beers and drink them",
-          "modelType":"OBJECT_DETECTION",
-          "completed": false
-        },
-        {
-          "id": 2,
-          "title":"T-Pose??",
-          "description": "Find a cool bench and T-Pose in front",
-          "modelType":"POSE_OBJECT_DETECTION",
-          "completed": false
-        },
-        {
-          "id": 3,
-          "title": "Good Job :)",
-          "description": "Make a thumbs-up!!!",
-          "modelType": "HAND_TRACKING",
-          "completed": false
+          "tasks": [
+            {
+              "id": 1,
+              "title": "Beer4Two",
+              "description": "Find 2 full beers and drink them",
+              "modelType": "OBJECT_DETECTION",
+              "completed": false
+            },
+            {
+              "id": 2,
+              "title": "T-Pose??",
+              "description": "Find a cool bench and T-Pose in front",
+              "modelType": "POSE_OBJECT_DETECTION",
+              "completed": false
+            },
+            {
+              "id": 3,
+              "title": "Good Job :)",
+              "description": "Make a thumbs-up!!!",
+              "modelType": "HAND_TRACKING",
+              "completed": false
+            }
+          ]
         }
-      ]
-    }
-    """
+        """
 
         val jsonFormat = Json { ignoreUnknownKeys = true }
-        val taskList = jsonFormat.decodeFromString<TaskList>(json)
-
-        Log.d("MainActivity", taskList.toString())
+        return jsonFormat.decodeFromString(json)
     }
 
 }
