@@ -15,12 +15,13 @@
             android:id="@+id/currentTaskTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:padding="8dp"
             android:text="Current Task: "
             android:textAppearance="?attr/textAppearanceHeadline6"
-            android:padding="8dp"
-            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
