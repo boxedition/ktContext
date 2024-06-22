@@ -58,8 +58,8 @@ class MainActivity : AppCompatActivity() {
           "tasks": [
             {
               "id": 1,
-              "title": "Beer4Two",
-              "description": "Find 2 full beers and drink them",
+              "title": "Is that Beer?",
+              "description": "Find a cup or glass, of sweet Beer.",
               "modelType": "OBJECT_DETECTION",
               "modelValue": "cup",
               "completed": false
