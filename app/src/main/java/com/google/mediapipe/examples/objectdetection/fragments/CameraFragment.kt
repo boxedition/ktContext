@@ -34,14 +34,11 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.Navigation
 import com.google.mediapipe.examples.objectdetection.MainViewModel
 import com.google.mediapipe.examples.objectdetection.ObjectDetectorHelper
-import com.google.mediapipe.examples.objectdetection.R
 import com.google.mediapipe.examples.objectdetection.adapter.TaskAdapter
 import com.google.mediapipe.examples.objectdetection.databinding.FragmentCameraBinding
 import com.google.mediapipe.tasks.vision.core.RunningMode
-import com.google.mediapipe.tasks.vision.objectdetector.ObjectDetectorResult
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
@@ -357,10 +354,26 @@ class CameraFragment : Fragment(), ObjectDetectorHelper.DetectorListener {
                             if (categoryName == currentTask.modelValue) {
                                 //Log.d(TAG, "Detected object matches current task model value: $categoryName")
                                 Toast.makeText(requireContext(), "Current task model value detected: $categoryName", Toast.LENGTH_SHORT).show()
-                                viewModel.currentTask.value?.completed = true
+                                //viewModel.currentTask.value?.completed = true
+                                viewModel.tasks.value?.indexOf(currentTask)?.let { index ->
+                                    viewModel.tasks.value?.get(index)?.completed = true
+                                }
+                                viewModel.currentTask.let { currentTask ->
+                                    if (currentTask.value?.completed == true) {
+                                        Toast.makeText(context, "Task completed: ${currentTask.value?.title}", Toast.LENGTH_SHORT).show()
+                                        //change to next task
+                                        viewModel.tasks.value?.let { tasks ->
+                                            for (task in tasks) {
+                                                if (!task.completed) {
+                                                    viewModel.setCurrentTask(task)
+                                                    break
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                                 val taskAdapter = TaskAdapter { task ->
                                     //Toast.makeText(context, "Current task set to: ${task.title}", Toast.LENGTH_SHORT).show()
-                                    viewModel.setCurrentTask(viewModel.tasks.value?.get(currentTask.id + 1)!!)
                                 }
                                 taskAdapter.submitList(viewModel.tasks.value!!)
                                 break

@@ -41,8 +41,8 @@ class TaskAdapter(private val onTaskClick: (Task) -> Unit) : RecyclerView.Adapte
                 taskState.text = "Completed"
             } else {
                 taskState.text = "Not Completed"
+                itemView.setOnClickListener { onTaskClick(task) }
             }
-            itemView.setOnClickListener { onTaskClick(task) }
         }
     }
 }
