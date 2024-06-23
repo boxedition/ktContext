@@ -57,8 +57,16 @@ class MainActivity : AppCompatActivity() {
         {
           "tasks": [
             {
+              "id": 2,
+              "title": "Is that a beer?",
+              "description": "Find a beer!",
+              "modelType": "OBJECT_DETECTION_BEER",
+              "modelValue": "beer"
+              "completed": false
+            },
+            {
               "id": 3,
-              "title": "Nice Finger :)",
+              "title": "Nice Finger.",
               "description": "Make a thumbs-up!!!",
               "modelType": "HAND_TRACKING",
               "modelValue": "Thumb_Up",
@@ -66,18 +74,10 @@ class MainActivity : AppCompatActivity() {
             },
             {
               "id": 1,
-              "title": "Is that Beer?",
-              "description": "Find a cup or glass, of sweet Beer.",
+              "title": "Find a Drink Container!",
+              "description": "Find a cup.",
               "modelType": "OBJECT_DETECTION",
               "modelValue": "cup",
-              "completed": true
-            },
-            {
-              "id": 2,
-              "title": "T-Pose??",
-              "description": "Find a cool bench and T-Pose in front",
-              "modelType": "POSE_OBJECT_DETECTION",
-              "modelValue": "??"
               "completed": false
             }
           ]

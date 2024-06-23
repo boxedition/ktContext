@@ -85,7 +85,7 @@ class CameraFragment : Fragment(), ObjectDetectorHelper.DetectorListener,
         backgroundExecutor.execute {
             viewModel.currentTask.value?.let { currentTask ->
                 when (currentTask.modelType) {
-                    "OBJECT_DETECTION" -> {
+                    "OBJECT_DETECTION", "OBJECT_DETECTION_BEER" -> {
                         if (objectDetectorHelper.isClosed()) {
                             objectDetectorHelper.setupObjectDetector()
                         }
@@ -150,12 +150,21 @@ class CameraFragment : Fragment(), ObjectDetectorHelper.DetectorListener,
 
         // Initialize our background executor
         backgroundExecutor = Executors.newSingleThreadExecutor()
-
+        viewModel.currentTask.value?.let { currentTask ->
+            when (currentTask.modelType) {
+                "OBJECT_DETECTION" -> {
+                    viewModel.setModel(ObjectDetectorHelper.MODEL_EFFICIENTDETV0)
+                }
+                "OBJECT_DETECTION_BEER" -> {
+                    viewModel.setModel(ObjectDetectorHelper.MODEL_EFFICIENTDETV0BEER)
+                }
+            }
+        }
         // Create the ObjectDetectionHelper that will handle the inference
         backgroundExecutor.execute {
             viewModel.currentTask.value?.let { currentTask ->
                 when (currentTask.modelType) {
-                    "OBJECT_DETECTION" -> {
+                    "OBJECT_DETECTION", "OBJECT_DETECTION_BEER" -> {
                         objectDetectorHelper = ObjectDetectorHelper(
                             context = requireContext(),
                             threshold = viewModel.currentThreshold,
@@ -232,7 +241,7 @@ class CameraFragment : Fragment(), ObjectDetectorHelper.DetectorListener,
             .also {
                 viewModel.currentTask.value?.let { currentTask ->
                     when (currentTask.modelType) {
-                        "OBJECT_DETECTION" -> {
+                        "OBJECT_DETECTION", "OBJECT_DETECTION_BEER" -> {
                             it.setAnalyzer(
                                 backgroundExecutor, objectDetectorHelper::detectLivestreamFrame
                             )

@@ -51,7 +51,7 @@ class TasksFragment : Fragment() {
 
         viewModel.currentTask.observe(viewLifecycleOwner, Observer { task ->
             // Update the UI to show the current task, e.g., update a TextView
-            binding.currentTaskTextView.text = "Current Task: ${task.title}"
+            binding.currentTaskTextView.text = "Current Task: ${task?.title}"
         })
     }
 
