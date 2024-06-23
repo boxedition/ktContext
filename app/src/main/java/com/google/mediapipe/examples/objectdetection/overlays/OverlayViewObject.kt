@@ -14,19 +14,20 @@
  * limitations under the License.
  */
 
-package com.google.mediapipe.examples.objectdetection
+package com.google.mediapipe.examples.objectdetection.overlays
 
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.ContextCompat
+import com.google.mediapipe.examples.objectdetection.R
 import com.google.mediapipe.tasks.vision.core.RunningMode
 import com.google.mediapipe.tasks.vision.objectdetector.ObjectDetectorResult
 import kotlin.math.max
 import kotlin.math.min
 
-class OverlayView(context: Context?, attrs: AttributeSet?) :
+class OverlayViewObject(context: Context?, attrs: AttributeSet?) :
     View(context, attrs) {
 
     private var results: ObjectDetectorResult? = null
