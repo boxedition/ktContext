@@ -13,6 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+task downloadTaskFile(type: Download) {
+    src 'https://storage.googleapis.com/mediapipe-models/gesture_recognizer/gesture_recognizer/float16/1/gesture_recognizer.task'
+    dest project.ext.ASSET_DIR + '/gesture_recognizer.task'
+    overwrite false
+}
 
 task downloadModelFile0(type: Download) {
     src 'https://storage.googleapis.com/mediapipe-models/object_detector/efficientdet_lite0/float32/1/efficientdet_lite0.tflite'
@@ -26,4 +31,4 @@ task downloadModelFile1(type: Download) {
     overwrite false
 }
 
-preBuild.dependsOn downloadModelFile0, downloadModelFile1
+preBuild.dependsOn downloadTaskFile, downloadModelFile0, downloadModelFile1
