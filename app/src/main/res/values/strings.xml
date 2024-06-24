@@ -53,4 +53,7 @@
     <string name="play">Play</string>
     <string name="tasks">Tarefas</string>
     <string name="tasks_title">Tarefas</string>
+    <string name="tasks_completed">Tarefa Concluida</string>
+    <string name="task_next">Próxima Tarefa</string>
+    <string name="game_end">Espero que tenhas gostado!</string>
 </resources>

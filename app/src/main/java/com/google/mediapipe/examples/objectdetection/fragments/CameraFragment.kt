@@ -17,6 +17,7 @@ package com.google.mediapipe.examples.objectdetection.fragments
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -34,10 +35,12 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
 import com.google.mediapipe.examples.objectdetection.GestureRecognizerHelper
 import com.google.mediapipe.examples.objectdetection.MainViewModel
 import com.google.mediapipe.examples.objectdetection.MainViewModelGesture
 import com.google.mediapipe.examples.objectdetection.ObjectDetectorHelper
+import com.google.mediapipe.examples.objectdetection.R
 import com.google.mediapipe.examples.objectdetection.adapter.GestureRecognizerResultsAdapter
 import com.google.mediapipe.examples.objectdetection.databinding.FragmentCameraBinding
 import com.google.mediapipe.tasks.vision.core.RunningMode
@@ -155,6 +158,7 @@ class CameraFragment : Fragment(), ObjectDetectorHelper.DetectorListener,
                 "OBJECT_DETECTION" -> {
                     viewModel.setModel(ObjectDetectorHelper.MODEL_EFFICIENTDETV0)
                 }
+
                 "OBJECT_DETECTION_BEER" -> {
                     viewModel.setModel(ObjectDetectorHelper.MODEL_EFFICIENTDETV0BEER)
                 }
@@ -225,8 +229,7 @@ class CameraFragment : Fragment(), ObjectDetectorHelper.DetectorListener,
 
         // CameraSelector - makes assumption that we're only using the back camera
         val cameraSelector =
-            CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_BACK)
-                .build()
+            CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_BACK).build()
 
         // Preview. Only using the 4:3 ratio because this is the closest to our models
         preview = Preview.Builder().setTargetAspectRatio(AspectRatio.RATIO_4_3)
@@ -317,12 +320,20 @@ class CameraFragment : Fragment(), ObjectDetectorHelper.DetectorListener,
                             val categoryName = category.categoryName()
                             //Log.d(TAG, "Category: $categoryName")
                             if (categoryName == currentTask.modelValue) {
-                                //Log.d(TAG, "Detected object matches current task model value: $categoryName")
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Current task model value detected: $categoryName",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+//                                Toast.makeText(
+//                                    requireContext(),
+//                                    "Current task model value detected: $categoryName",
+//                                    Toast.LENGTH_SHORT
+//                                ).show()
+                                view?.findNavController()?.navigate(
+                                    R.id.action_camera_fragment_to_objectCompletedFragment
+                                )
+
+                                // Capture the current frame
+                                val bitmap = fragmentCameraBinding.viewFinder.bitmap
+                                bitmap?.let {
+                                    viewModel.detectedFrame.value = it
+                                }
                                 break
                             }
                         }
@@ -362,11 +373,23 @@ class CameraFragment : Fragment(), ObjectDetectorHelper.DetectorListener,
                 // Show result of recognized gesture
                 val gestureCategories = resultBundle.results.first().gestures()
                 if (gestureCategories.isNotEmpty()) {
-                    gestureRecognizerResultAdapter.updateResults(
-                        gestureCategories.first()
-                    )
-                } else {
-                    gestureRecognizerResultAdapter.updateResults(emptyList())
+
+                    viewModel.currentTask.value?.let { currentTask ->
+                        val gestureCategory = gestureCategories.first()[0].categoryName()
+                        Log.d(TAG, "gestureCategories: $gestureCategory")
+
+                        if (gestureCategory == currentTask.modelValue) {
+                            view?.findNavController()?.navigate(
+                                R.id.action_camera_fragment_to_objectCompletedFragment
+                            )
+                            // Capture the current frame
+                            val bitmap = fragmentCameraBinding.viewFinder.bitmap
+                            bitmap?.let {
+                                viewModel.detectedFrame.value = it
+                            }
+                        }
+                    }
+
                 }
 
                 fragmentCameraBinding.bottomSheetLayout.inferenceTimeVal.text =

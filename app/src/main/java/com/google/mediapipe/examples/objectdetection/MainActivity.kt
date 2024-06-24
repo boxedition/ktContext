@@ -65,19 +65,19 @@ class MainActivity : AppCompatActivity() {
               "completed": false
             },
             {
-              "id": 3,
-              "title": "Nice Finger.",
-              "description": "Make a thumbs-up!!!",
-              "modelType": "HAND_TRACKING",
-              "modelValue": "Thumb_Up",
-              "completed": false
-            },
-            {
               "id": 1,
               "title": "Find a Drink Container!",
               "description": "Find a cup.",
               "modelType": "OBJECT_DETECTION",
               "modelValue": "cup",
+              "completed": false
+            },
+            {
+              "id": 3,
+              "title": "Nice Finger.",
+              "description": "Make a thumbs-up!!!",
+              "modelType": "HAND_TRACKING",
+              "modelValue": "Thumb_Up",
               "completed": false
             }
           ]
