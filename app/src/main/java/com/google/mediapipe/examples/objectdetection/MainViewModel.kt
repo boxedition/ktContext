@@ -15,6 +15,7 @@
  */
 package com.google.mediapipe.examples.objectdetection
 
+import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,8 +27,10 @@ class MainViewModel : ViewModel() {
     private val _tasks = MutableLiveData<List<Task>>()
     val tasks: LiveData<List<Task>> get() = _tasks
 
-    private val _currentTask = MutableLiveData<Task>()
-    val currentTask: LiveData<Task> get() = _currentTask
+    val detectedFrame: MutableLiveData<Bitmap> = MutableLiveData()
+
+    private val _currentTask = MutableLiveData<Task?>()
+    val currentTask: MutableLiveData<Task?> get() = _currentTask
 
     private var _delegate: Int = ObjectDetectorHelper.DELEGATE_CPU
     private var _threshold: Float =
@@ -59,8 +62,27 @@ class MainViewModel : ViewModel() {
 
     fun setTasks(taskList: List<Task>) {
         _tasks.value = taskList
-        if (taskList.isNotEmpty()) {
-            _currentTask.value = taskList[0] // Set the first task as the current task
+        _currentTask.value = firstAvailableTask(taskList)
+    }
+
+    fun firstAvailableTask(taskList: List<Task>): Task? {
+        return taskList.firstOrNull { !it.completed }
+    }
+
+    fun markTaskAsComplete(taskId: Int) {
+        val currentTasks = _tasks.value
+        if (currentTasks != null) {
+            // Create nova lista de tarefas
+            val updatedTaskList = currentTasks.map { task ->
+                if (task.id == taskId) {
+                    task.copy(completed = true)
+                } else {
+                    task
+                }
+            }
+            //Salvar nova lista
+            _tasks.value = updatedTaskList
+            _currentTask.value = firstAvailableTask(updatedTaskList)
         }
     }
 
