@@ -73,5 +73,13 @@
         <action
             android:id="@+id/action_objectCompletedFragment_to_camera_fragment"
             app:destination="@id/camera_fragment" />
+        <action
+            android:id="@+id/action_objectCompletedFragment_to_gameEndFragment"
+            app:destination="@id/gameEndFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/gameEndFragment"
+        android:name="com.google.mediapipe.examples.objectdetection.fragments.GameEndFragment"
+        android:label="fragment_game_end"
+        tools:layout="@layout/fragment_game_end" />
 </navigation>

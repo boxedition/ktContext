@@ -62,15 +62,7 @@ class MainActivity : AppCompatActivity() {
               "description": "Find a beer!",
               "modelType": "OBJECT_DETECTION_BEER",
               "modelValue": "beer"
-              "completed": false
-            },
-            {
-              "id": 3,
-              "title": "Nice Finger.",
-              "description": "Make a thumbs-up!!!",
-              "modelType": "HAND_TRACKING",
-              "modelValue": "Thumb_Up",
-              "completed": false
+              "completed": true
             },
             {
               "id": 1,
@@ -79,6 +71,14 @@ class MainActivity : AppCompatActivity() {
               "modelType": "OBJECT_DETECTION",
               "modelValue": "cup",
               "completed": false
+            },
+            {
+              "id": 3,
+              "title": "Nice Finger.",
+              "description": "Make a thumbs-up!!!",
+              "modelType": "HAND_TRACKING",
+              "modelValue": "Thumb_Up",
+              "completed": true
             }
           ]
         }

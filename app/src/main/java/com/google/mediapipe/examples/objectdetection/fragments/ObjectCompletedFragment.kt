@@ -36,12 +36,21 @@ class ObjectCompletedFragment : Fragment() {
 
         viewModel.currentTask.observe(viewLifecycleOwner, Observer { task ->
             if (task != null) {
-                binding.taskTextView.text = task.description
+                binding.taskTitle.text = task.title
+                binding.taskDescription.text = task.description
+                viewModel.markTaskAsComplete(task.id)
             }
         })
 
         binding.continueButton.setOnClickListener {
-            view.findNavController().navigate(ObjectCompletedFragmentDirections.actionObjectCompletedFragmentToCameraFragment())
+            //view.findNavController().navigate(ObjectCompletedFragmentDirections.actionObjectCompletedFragmentToCameraFragment())
+            if (viewModel.currentTask.value != null) {
+                // Navigate to the CameraFragment
+                view.findNavController().navigate(R.id.action_objectCompletedFragment_to_camera_fragment)
+            } else {
+                // Show a message if currentTask is null
+                view.findNavController().navigate(R.id.action_objectCompletedFragment_to_gameEndFragment)
+            }
         }
     }
 
