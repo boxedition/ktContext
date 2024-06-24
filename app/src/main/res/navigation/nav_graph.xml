@@ -38,11 +38,8 @@
         android:name="com.google.mediapipe.examples.objectdetection.fragments.CameraFragment"
         android:label="CameraFragment">
         <action
-            android:id="@+id/action_camera_fragment_to_gallery_fragment"
-            app:destination="@id/gallery_fragment" />
-        <action
-            android:id="@+id/action_camera_fragment_to_permissions_fragment"
-            app:destination="@id/permissions_fragment" />
+            android:id="@+id/action_camera_fragment_to_objectCompletedFragment"
+            app:destination="@id/objectCompletedFragment" />
     </fragment>
 
     <fragment
@@ -67,9 +64,14 @@
         android:id="@+id/tasksFragment"
         android:name="com.google.mediapipe.examples.objectdetection.fragments.TasksFragment"
         android:label="fragment_tasks"
-        tools:layout="@layout/fragment_tasks" >
+        tools:layout="@layout/fragment_tasks" />
+    <fragment
+        android:id="@+id/objectCompletedFragment"
+        android:name="com.google.mediapipe.examples.objectdetection.fragments.ObjectCompletedFragment"
+        android:label="fragment_object_completed"
+        tools:layout="@layout/fragment_object_completed" >
         <action
-            android:id="@+id/action_tasksFragment_to_camera_fragment"
+            android:id="@+id/action_objectCompletedFragment_to_camera_fragment"
             app:destination="@id/camera_fragment" />
     </fragment>
 </navigation>
