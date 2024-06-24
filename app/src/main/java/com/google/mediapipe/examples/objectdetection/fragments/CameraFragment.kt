@@ -373,11 +373,23 @@ class CameraFragment : Fragment(), ObjectDetectorHelper.DetectorListener,
                 // Show result of recognized gesture
                 val gestureCategories = resultBundle.results.first().gestures()
                 if (gestureCategories.isNotEmpty()) {
-                    gestureRecognizerResultAdapter.updateResults(
-                        gestureCategories.first()
-                    )
-                } else {
-                    gestureRecognizerResultAdapter.updateResults(emptyList())
+
+                    viewModel.currentTask.value?.let { currentTask ->
+                        val gestureCategory = gestureCategories.first()[0].categoryName()
+                        Log.d(TAG, "gestureCategories: $gestureCategory")
+
+                        if (gestureCategory == currentTask.modelValue) {
+                            view?.findNavController()?.navigate(
+                                R.id.action_camera_fragment_to_objectCompletedFragment
+                            )
+                            // Capture the current frame
+                            val bitmap = fragmentCameraBinding.viewFinder.bitmap
+                            bitmap?.let {
+                                viewModel.detectedFrame.value = it
+                            }
+                        }
+                    }
+
                 }
 
                 fragmentCameraBinding.bottomSheetLayout.inferenceTimeVal.text =

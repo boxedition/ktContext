@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
               "description": "Find a beer!",
               "modelType": "OBJECT_DETECTION_BEER",
               "modelValue": "beer"
-              "completed": true
+              "completed": false
             },
             {
               "id": 1,
@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
               "description": "Make a thumbs-up!!!",
               "modelType": "HAND_TRACKING",
               "modelValue": "Thumb_Up",
-              "completed": true
+              "completed": false
             }
           ]
         }
